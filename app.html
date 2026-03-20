@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Launch in 30 Days — Your Business Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#0A0A0A;color:#F0EDE8;min-height:100vh}
+.app{max-width:960px;margin:0 auto;padding:1.5rem}
+.hero{text-align:center;padding:2rem 1rem 1.5rem;border-bottom:1px solid rgba(255,255,255,0.08);margin-bottom:1.5rem}
+.hero-badge{display:inline-block;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:999px;border:1px solid rgba(29,158,117,0.4);color:#1D9E75;margin-bottom:12px}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(28px,5vw,48px);font-weight:800;line-height:1.1;letter-spacing:-0.02em;margin-bottom:8px}
+.hero h1 span{color:#1D9E75}
+.hero p{font-size:15px;color:#888780;max-width:500px;margin:0 auto 1.25rem;font-weight:300}
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap}
+.stat .sn{font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:#F0EDE8}
+.stat .sl{font-size:11px;color:#888780;text-transform:uppercase;letter-spacing:.05em}
+
+.progress-wrap{margin-bottom:1.5rem}
+.progress-top{display:flex;justify-content:space-between;font-size:12px;color:#888780;margin-bottom:6px}
+.progress-bar{height:5px;background:rgba(255,255,255,0.08);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,#1D9E75,#C9A84C);border-radius:3px;transition:width .5s ease}
+
+.phase-tabs{display:flex;gap:6px;margin-bottom:1.25rem;flex-wrap:wrap}
+.phase-tab{font-size:12px;padding:6px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#888780;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+.phase-tab:hover{background:rgba(255,255,255,0.05)}
+.phase-tab.active{background:#F0EDE8;color:#0A0A0A;border-color:#F0EDE8;font-weight:500}
+
+.day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:1.5rem}
+.day-card{background:#111111;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1rem;cursor:pointer;transition:all .15s;position:relative}
+.day-card:hover{border-color:rgba(255,255,255,0.15);background:#161616}
+.day-card.active{border-color:#1D9E75;border-width:1.5px}
+.day-card.completed{opacity:.6}
+.day-card.completed::after{content:"✓";position:absolute;top:10px;right:12px;font-size:13px;color:#1D9E75;font-weight:600}
+.day-num{font-size:11px;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.day-title{font-size:14px;font-weight:500;color:#F0EDE8;margin-bottom:3px;line-height:1.3}
+.day-sub{font-size:12px;color:#888780}
+.phase-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+.task-panel{background:#111111;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:1.5rem;margin-bottom:1rem}
+.tp-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem;gap:12px}
+.tp-day{font-size:11px;color:#888780;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.tp-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:#F0EDE8}
+.tp-phase{font-size:12px;color:#888780;margin-top:3px}
+.complete-btn{font-size:12px;padding:7px 16px;border-radius:999px;border:1px solid #1D9E75;background:transparent;color:#1D9E75;cursor:pointer;white-space:nowrap;transition:all .15s;font-family:'DM Sans',sans-serif;flex-shrink:0}
+.complete-btn:hover,.complete-btn.done{background:#1D9E75;color:white}
+
+.checklist{margin-bottom:1.25rem}
+.check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px;cursor:pointer}
+.check-item:last-child{border-bottom:none}
+.check-item.checked .check-lbl{text-decoration:line-through;color:#888780}
+.check-box{width:18px;height:18px;border-radius:5px;border:1px solid rgba(255,255,255,0.15);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .15s;font-size:11px}
+.check-box.checked{background:#1D9E75;border-color:#1D9E75;color:white}
+.check-lbl{color:#F0EDE8;line-height:1.5}
+
+.ai-section{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:1.25rem}
+.ai-label{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:#888780;margin-bottom:10px}
+.ai-prompt-row{display:flex;gap:8px}
+.ai-prompt-row select{flex:1;font-size:13px;padding:8px 12px;border:1px solid rgba(255,255,255,0.1);border-radius:8px;background:#1A1A1A;color:#F0EDE8;font-family:'DM Sans',sans-serif}
+.ai-go-btn{font-size:13px;padding:8px 18px;border-radius:8px;background:#1D9E75;color:white;border:none;cursor:pointer;white-space:nowrap;transition:opacity .15s;font-family:'DM Sans',sans-serif;font-weight:500}
+.ai-go-btn:hover{opacity:.85}
+.ai-go-btn:disabled{opacity:.4;cursor:not-allowed}
+.ai-output{margin-top:12px;font-size:14px;line-height:1.8;color:#F0EDE8;white-space:pre-wrap;min-height:20px}
+.ai-loading{color:#888780;font-size:13px}
+
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;padding-top:1rem;border-top:1px solid rgba(255,255,255,0.08)}
+.nav-btn{font-size:13px;padding:9px 20px;border-radius:8px;border:1px solid rgba(255,255,255,0.1);background:transparent;color:#F0EDE8;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
+.nav-btn:hover{background:rgba(255,255,255,0.05)}
+.nav-btn.primary{background:#1D9E75;color:white;border-color:#1D9E75}
+.nav-btn.primary:hover{background:#0F6E56}
+.nav-btn:disabled{opacity:.3;cursor:not-allowed}
+.day-counter{font-size:13px;color:#888780}
+
+@media(max-width:640px){.app{padding:1rem}.hero{padding:1.5rem 0.5rem 1rem}.tp-header{flex-direction:column}.ai-prompt-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hero">
+    <div class="hero-badge">⚡ AI-Powered Business Launcher</div>
+    <h1>Launch Your Business<br>in <span>30 Days</span></h1>
+    <p>From zero to open doors — LLC, branding, lease, buildout, and grand opening. One step at a time.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="sn">30</div><div class="sl">Day roadmap</div></div>
+      <div class="stat"><div class="sn">6</div><div class="sl">Core phases</div></div>
+      <div class="stat"><div class="sn" id="done-count">0</div><div class="sl">Days complete</div></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-top">
+      <span id="prog-label">Day 1 of 30</span>
+      <span id="prog-pct">0% complete</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+
+  <div class="phase-tabs" id="phase-tabs"></div>
+  <div class="day-grid" id="day-grid"></div>
+  <div id="task-panel"></div>
+</div>
+
+<script>
+const PHASES=[
+  {id:0,name:"Foundation",   color:"#1D9E75",days:[1,2,3,4,5]},
+  {id:1,name:"Legal & LLC",  color:"#378ADD",days:[6,7,8,9,10]},
+  {id:2,name:"Brand & Online",color:"#EF9F27",days:[11,12,13,14,15]},
+  {id:3,name:"Location",     color:"#9B59B6",days:[16,17,18,19,20]},
+  {id:4,name:"Buildout",     color:"#D85A30",days:[21,22,23,24,25]},
+  {id:5,name:"Launch",       color:"#1D9E75",days:[26,27,28,29,30]},
+];
+const DAYS=[
+  {day:1,phase:0,title:"Define Your Business Concept",sub:"Idea, niche, target customer",tasks:["Write a 2-sentence description of what your business does","Identify your top 3 target customers","List your 3 main products or services","Research 3 competitors in your market","Define what makes you different from competitors"],prompts:["Write my business concept statement","Help me identify my target customer","Analyze my competition and what gap I fill"]},
+  {day:2,phase:0,title:"Choose Your Business Structure",sub:"LLC vs S-Corp vs Sole Prop",tasks:["Research LLC vs S-Corp tax differences","Decide on single-member or multi-member LLC","Choose your state of formation","Understand pass-through taxation basics","Decide if you need a registered agent"],prompts:["Explain LLC vs S-Corp for my situation","What state should I form my LLC in","Do I need a registered agent and what do they do"]},
+  {day:3,phase:0,title:"Name Your Business",sub:"Legal name, DBA, trademark check",tasks:["Brainstorm 10 possible business names","Check name availability in your state","Search USPTO trademark database","Check domain name availability","Verify social media handles are available"],prompts:["Generate 10 business name ideas for my concept","How do I check if my name is already trademarked","Help me pick the strongest name from my list"]},
+  {day:4,phase:0,title:"Build Your Business Plan",sub:"Revenue model, expenses, projections",tasks:["Write your mission statement","Define your revenue streams","Estimate your startup costs","Project year 1 monthly revenue","Identify your break-even point"],prompts:["Write my mission statement based on my concept","Help me estimate startup costs for my business","Build a year 1 revenue projection model"]},
+  {day:5,phase:0,title:"Set Your Budget & Funding Plan",sub:"Capital, loans, bootstrap strategy",tasks:["Calculate total capital needed to launch","Research SBA micro-loan options","Look into business credit cards","Set a monthly operating budget","Decide bootstrap vs investor vs loan"],prompts:["How much capital do I need to launch my business","What SBA loans am I eligible for as a new business","Build my startup budget spreadsheet template"]},
+  {day:6,phase:1,title:"File Your LLC Articles",sub:"State filing, fees, timeline",tasks:["Go to your state Secretary of State website","Complete Articles of Organization form","Pay state filing fee (varies $50-500)","Choose your registered agent","Submit filing and save confirmation number"],prompts:["Walk me through filing my LLC articles step by step","What information do I need to file my LLC","What are the LLC filing fees in my state"]},
+  {day:7,phase:1,title:"Get Your EIN",sub:"IRS tax ID — free and instant",tasks:["Go to IRS.gov EIN online application","Complete the SS-4 form online","Receive your EIN immediately (free)","Save EIN confirmation letter as PDF","Add EIN to your business records folder"],prompts:["Walk me through applying for an EIN on IRS.gov","What do I need to apply for an EIN","How do I use my EIN to open a business bank account"]},
+  {day:8,phase:1,title:"Operating Agreement & Bylaws",sub:"Internal rules for your LLC",tasks:["Draft your LLC operating agreement","Define member roles and ownership percentages","Outline profit distribution rules","Set voting and decision-making procedures","Sign and date the agreement"],prompts:["Draft a complete LLC operating agreement for me","What must an LLC operating agreement include","Help me define member roles and ownership structure"]},
+  {day:9,phase:1,title:"Business Licenses & Permits",sub:"Local, state, and federal requirements",tasks:["Research your city and county business license","Apply for seller's permit if selling products","Check industry-specific license requirements","Apply for health permit if food or wellness business","Add all renewal dates to your calendar"],prompts:["What licenses do I need for my specific business type","How do I apply for a seller's permit in my state","What permits do I need to open a physical location"]},
+  {day:10,phase:1,title:"Open Business Bank Account",sub:"Separate finances from day one",tasks:["Research banks with no monthly fee business accounts","Gather: EIN, Articles of Organization, and ID","Open checking account in your business name","Order business debit card","Set up online banking and accounting software"],prompts:["What documents do I need to open a business bank account","Best banks for small business with no monthly fees","How do I keep business and personal finances separated"]},
+  {day:11,phase:2,title:"Design Your Brand Identity",sub:"Logo, colors, fonts, voice",tasks:["Choose 2-3 brand colors with hex codes","Select 1-2 brand fonts","Write your brand voice guidelines","Create a simple logo using Canva","Build a one-page brand style guide"],prompts:["Help me choose brand colors for my business type","Write my brand voice and tone guidelines","Generate logo concept ideas for my business"]},
+  {day:12,phase:2,title:"Register Your Domain & Host",sub:"Website home base secured",tasks:["Purchase your domain on GoDaddy or Namecheap","Choose a website builder — Squarespace Shopify or Wix","Set up hosting and connect your domain","Install SSL certificate (usually automatic)","Plan your website page structure"],prompts:["What website builder is best for my type of business","Help me plan my website page structure","What pages does my business website absolutely need"]},
+  {day:13,phase:2,title:"Build Your Website",sub:"5 core pages minimum",tasks:["Build Home page with clear value proposition","Create About page with your story","Add Services or Products page with pricing","Set up Contact page with a form","Add Google Analytics tracking code"],prompts:["Write my website homepage copy","Write my About page story","Write my services page with clear pricing"]},
+  {day:14,phase:2,title:"Set Up Social Media",sub:"Claim all handles consistently",tasks:["Create Instagram business account","Create Facebook business page","Create TikTok business account","Create Google Business Profile","Use the same handle across all platforms"],prompts:["Write my Instagram bio for my business","Write my Facebook page description","Create my first 5 social media posts to launch with"]},
+  {day:15,phase:2,title:"Email & CRM Setup",sub:"Communication infrastructure",tasks:["Set up professional email at your domain","Choose email marketing platform — Mailchimp or Klaviyo","Create a 3-email welcome sequence","Build your first email opt-in offer","Set up a basic CRM or contact spreadsheet"],prompts:["Write my 3-email welcome sequence","What CRM should I use as a new small business","Help me create a lead magnet to grow my email list"]},
+  {day:16,phase:3,title:"Define Your Space Requirements",sub:"Size, zoning, foot traffic needs",tasks:["Determine minimum square footage needed","List must-have vs nice-to-have space features","Research zoning requirements for your business type","Identify your target neighborhoods","Set your maximum monthly rent budget"],prompts:["How much space does my type of business typically need","What zoning classification does my business require","Help me evaluate whether a commercial location is right"]},
+  {day:17,phase:3,title:"Search & Tour Locations",sub:"LoopNet, local brokers, direct outreach",tasks:["Create a LoopNet account and search listings","Contact 2-3 commercial real estate brokers","Schedule tours of at least 5 spaces","Evaluate foot traffic at peak hours","Compare locations against your requirements list"],prompts:["What questions should I ask on a commercial space tour","How do I evaluate foot traffic for a retail location","What red flags should I look for in a commercial space"]},
+  {day:18,phase:3,title:"Understand Commercial Leases",sub:"NNN, gross, modified gross explained",tasks:["Learn the difference between NNN and gross leases","Understand CAM charges and what they cover","Calculate total monthly cost including all fees","Ask about landlord build-out allowance (TI)","Request 3 years of building expense history"],prompts:["Explain NNN vs gross lease in simple plain terms","What is a tenant improvement allowance and how do I get one","What should I negotiate in a commercial lease as a first timer"]},
+  {day:19,phase:3,title:"Negotiate Your Lease",sub:"Rent, TI allowance, free rent period",tasks:["Counter the asking rent by 10-15 percent","Negotiate free rent during buildout period (1-3 months)","Request tenant improvement allowance","Negotiate lease length and renewal options","Ask for an exclusivity clause if applicable"],prompts:["Help me write a counter-offer for a commercial lease","What is a reasonable TI allowance to request","Draft my lease negotiation email to send to the landlord"]},
+  {day:20,phase:3,title:"Sign Lease & Get Keys",sub:"Legal review, insurance, deposits",tasks:["Have an attorney review the lease before signing","Get commercial general liability insurance","Pay security deposit and first month's rent","Obtain certificate of occupancy requirements","Do a walk-through and document all existing damage"],prompts:["What should an attorney look for in my commercial lease","What insurance do I need before signing a commercial lease","Create my move-in walk-through checklist"]},
+  {day:21,phase:4,title:"Plan Your Space Layout",sub:"Floor plan, customer flow, code requirements",tasks:["Sketch your ideal floor plan on paper","Research ADA accessibility requirements","Plan electrical and plumbing needs","Identify which work requires permits","Create a prioritized buildout wish list vs budget"],prompts:["Help me plan my store layout for optimal customer flow","What ADA requirements apply to my business type","What buildout work always requires a permit"]},
+  {day:22,phase:4,title:"Get Contractor Bids",sub:"3 bids minimum, scope of work doc",tasks:["Write a detailed scope of work document","Get at least 3 licensed contractor bids","Verify all contractors are licensed and insured","Check contractor reviews and call references","Compare bids line by line not just total price"],prompts:["Help me write a scope of work document for my buildout","What questions should I ask a contractor before hiring","How do I fairly compare contractor bids against each other"]},
+  {day:23,phase:4,title:"Pull Permits & Start Construction",sub:"City permits, inspections, timeline",tasks:["Submit permit applications to city building department","Post permits visibly at the job site","Establish construction timeline with your contractor","Set up weekly check-in schedule with contractor","Document everything with photos daily"],prompts:["What permits do I need to pull for a commercial buildout","How long do commercial building permits typically take","What should my construction contract include to protect me"]},
+  {day:24,phase:4,title:"Order Equipment & Fixtures",sub:"Furniture, signage, technology setup",tasks:["Finalize your complete equipment list with lead times","Order all long-lead items immediately","Get exterior and interior signage designed and ordered","Order POS system and begin setup","Place your opening inventory order"],prompts:["Help me create a complete equipment checklist for my business","What POS system is best for my type of business","Create my opening inventory order list and quantities"]},
+  {day:25,phase:4,title:"Pass Inspections & Get CO",sub:"Certificate of Occupancy — the final hurdle",tasks:["Schedule final building inspection","Schedule fire marshal inspection","Schedule health department inspection if required","Complete all punch list items from inspections","Receive your Certificate of Occupancy"],prompts:["What inspections do I need to pass before I can open","What commonly fails a certificate of occupancy inspection","Create my pre-inspection checklist to be ready"]},
+  {day:26,phase:5,title:"Hire & Train Your Team",sub:"Payroll, onboarding, employee handbook",tasks:["Post job listings on Indeed and LinkedIn","Screen and interview all candidates","Complete I-9 and W-4 forms for all hires","Set up payroll through Gusto or ADP","Create basic employee handbook"],prompts:["Write a job posting for my first hire","Create my employee onboarding checklist","Write the essential policies for my employee handbook"]},
+  {day:27,phase:5,title:"Soft Open & Test Operations",sub:"Friends and family run-through",tasks:["Invite friends and family for a soft open","Test every part of your customer experience","Train all staff on POS and procedures","Identify and fix all operational gaps","Collect honest feedback from soft open guests"],prompts:["Create my soft open invitation message","What should I specifically test during my soft open","Help me create a feedback form for soft open guests"]},
+  {day:28,phase:5,title:"Marketing Push Before Grand Opening",sub:"Social, email, local press",tasks:["Post daily countdown content on all social media","Send email blast to your full list","Contact local press and bloggers","Create grand opening event on Facebook","Hang signage and build your window display"],prompts:["Write my grand opening countdown social media posts","Write my grand opening email blast to my list","Write a press release for my grand opening event"]},
+  {day:29,phase:5,title:"Grand Opening Day",sub:"Execute the plan, capture everything",tasks:["Arrive 2 hours early to prep the space","Brief all staff on the full day plan","Set up a photo and video moment for social content","Greet every single customer personally","Capture content throughout the entire day"],prompts:["Create my grand opening day minute by minute timeline","Write my opening day speech to my staff","What content should I capture on my grand opening day"]},
+  {day:30,phase:5,title:"Post-Launch Review & Next 90 Days",sub:"Metrics, adjustments, growth plan",tasks:["Review week 1 revenue against your projections","Identify the top 3 things that worked well","Identify the top 3 things to fix immediately","Set your 30 60 and 90 day revenue goals","Schedule a monthly business review as a recurring event"],prompts:["Help me analyze my first week of business performance","Create my 90-day growth plan with specific targets","What KPIs should I track every month as a new business"]},
+];
+
+let currentDay=0,currentPhase=0;
+let completed=new Set(),checkState={},aiOutput={};
+
+function getColor(p){return PHASES[p].color}
+
+function renderPhaseTabs(){
+  document.getElementById('phase-tabs').innerHTML=PHASES.map(p=>`
+    <button class="phase-tab ${p.id===currentPhase?'active':''}" onclick="setPhase(${p.id})">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${p.color};margin-right:5px;vertical-align:middle"></span>${p.name}
+    </button>`).join('');
+}
+
+function renderDayGrid(){
+  document.getElementById('day-grid').innerHTML=PHASES[currentPhase].days.map(d=>{
+    const day=DAYS[d-1],isActive=d-1===currentDay,isDone=completed.has(d-1);
+    return `<div class="day-card ${isActive?'active':''} ${isDone?'completed':''}" onclick="selectDay(${d-1})">
+      <div class="day-num"><span class="phase-dot" style="background:${getColor(day.phase)}"></span>Day ${d}</div>
+      <div class="day-title">${day.title}</div>
+      <div class="day-sub">${day.sub}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTaskPanel(){
+  const day=DAYS[currentDay],phase=PHASES[day.phase],isDone=completed.has(currentDay);
+  if(!checkState[currentDay]) checkState[currentDay]=new Array(day.tasks.length).fill(false);
+  const checks=checkState[currentDay],doneCount=checks.filter(Boolean).length;
+  document.getElementById('task-panel').innerHTML=`
+    <div class="task-panel">
+      <div class="tp-header">
+        <div>
+          <div class="tp-day">Day ${currentDay+1} · ${phase.name}</div>
+          <div class="tp-title">${day.title}</div>
+          <div class="tp-phase">${day.sub} · ${doneCount}/${day.tasks.length} tasks done</div>
+        </div>
+        <button class="complete-btn ${isDone?'done':''}" onclick="markComplete(${currentDay})">${isDone?'✓ Complete':'Mark complete'}</button>
+      </div>
+      <div class="checklist">${day.tasks.map((t,i)=>`
+        <div class="check-item ${checks[i]?'checked':''}" onclick="toggleCheck(${currentDay},${i})">
+          <div class="check-box ${checks[i]?'checked':''}">${checks[i]?'✓':''}</div>
+          <span class="check-lbl">${t}</span>
+        </div>`).join('')}</div>
+      <div class="ai-section">
+        <div class="ai-label">⚡ AI Assistant — get instant help with this step</div>
+        <div class="ai-prompt-row">
+          <select id="prompt-select">
+            <option value="">Choose what you need help with...</option>
+            ${day.prompts.map(p=>`<option value="${p}">${p}</option>`).join('')}
+          </select>
+          <button class="ai-go-btn" id="ai-btn" onclick="runAI()">Ask AI ↗</button>
+        </div>
+        <div class="ai-output" id="ai-output">${aiOutput[currentDay]||''}</div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <button class="nav-btn" onclick="prevDay()" ${currentDay===0?'disabled':''}>← Previous</button>
+      <span class="day-counter">Day ${currentDay+1} of 30</span>
+      <button class="nav-btn primary" onclick="nextDay()" ${currentDay===29?'disabled':''}>Next day →</button>
+    </div>`;
+}
+
+function updateProgress(){
+  const pct=Math.round((completed.size/30)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-label').textContent=`Day ${currentDay+1} of 30`;
+  document.getElementById('prog-pct').textContent=pct+'% complete';
+  document.getElementById('done-count').textContent=completed.size;
+}
+
+function setPhase(id){currentPhase=id;currentDay=PHASES[id].days[0]-1;renderPhaseTabs();renderDayGrid();renderTaskPanel();updateProgress()}
+function selectDay(idx){currentDay=idx;currentPhase=DAYS[idx].phase;renderPhaseTabs();renderDayGrid();renderTaskPanel();updateProgress()}
+function toggleCheck(d,i){if(!checkState[d])checkState[d]=new Array(DAYS[d].tasks.length).fill(false);checkState[d][i]=!checkState[d][i];renderTaskPanel()}
+function markComplete(d){if(completed.has(d))completed.delete(d);else completed.add(d);renderDayGrid();renderTaskPanel();updateProgress()}
+function nextDay(){if(currentDay<29){currentDay++;currentPhase=DAYS[currentDay].phase;renderPhaseTabs();renderDayGrid();renderTaskPanel();updateProgress()}}
+function prevDay(){if(currentDay>0){currentDay--;currentPhase=DAYS[currentDay].phase;renderPhaseTabs();renderDayGrid();renderTaskPanel();updateProgress()}}
+
+async function runAI(){
+  const sel=document.getElementById('prompt-select');
+  const prompt=sel.value;
+  if(!prompt)return;
+  const day=DAYS[currentDay];
+  const btn=document.getElementById('ai-btn');
+  const out=document.getElementById('ai-output');
+  btn.disabled=true;btn.textContent='Thinking...';
+  out.innerHTML='<span class="ai-loading">Working on it...</span>';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`You are a practical business launch advisor. The user is on Day ${currentDay+1}: "${day.title}" of their 30-day business launch journey. Be specific, actionable, and direct. Give real steps, real resources, real numbers. No fluff.`,
+        messages:[{role:'user',content:prompt}]
+      })
+    });
+    const data=await resp.json();
+    const text=data.content?.map(c=>c.text||'').join('')||'Could not get a response. Try again.';
+    aiOutput[currentDay]=text;
+    out.textContent=text;
+  }catch(e){out.textContent='AI unavailable right now. Try again in a moment.';}
+  btn.disabled=false;btn.textContent='Ask AI ↗';
+}
+
+renderPhaseTabs();renderDayGrid();renderTaskPanel();updateProgress();
+</script>
+</body>
+</html>
