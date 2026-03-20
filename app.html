@@ -7,6 +7,24 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+#gate{position:fixed;inset:0;background:#0A0A0A;z-index:9999;display:flex;align-items:center;justify-content:center;padding:2rem}
+#gate.hidden{display:none}
+.gate-box{width:100%;max-width:400px;text-align:center}
+.gate-logo{font-family:'Syne',sans-serif;font-size:26px;font-weight:800;color:#F0EDE8;margin-bottom:6px}
+.gate-logo span{color:#1D9E75}
+.gate-sub{font-size:14px;color:#888780;margin-bottom:2rem;font-weight:300}
+.gate-label{font-size:11px;color:#888780;text-align:left;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.gate-input{width:100%;padding:14px 16px;background:#111111;border:1px solid rgba(255,255,255,0.12);border-radius:10px;color:#F0EDE8;font-family:'DM Sans',sans-serif;font-size:18px;margin-bottom:10px;outline:none;transition:border-color .2s;text-align:center;letter-spacing:.15em}
+.gate-input:focus{border-color:#1D9E75}
+.gate-input::placeholder{color:#444;letter-spacing:0;font-size:14px}
+.gate-btn{width:100%;padding:14px;background:#1D9E75;color:white;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:background .2s;margin-bottom:10px}
+.gate-btn:hover{background:#0F6E56}
+.gate-error{font-size:13px;color:#D85A30;min-height:18px;margin-bottom:6px}
+.gate-hint{font-size:12px;color:#444}
+.gate-hint a{color:#888780;text-decoration:none}
+.gate-hint a:hover{color:#F0EDE8}
+</style>
+<style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:#0A0A0A;color:#F0EDE8;min-height:100vh}
 .app{max-width:960px;margin:0 auto;padding:1.5rem}
@@ -78,6 +96,19 @@ body{font-family:'DM Sans',sans-serif;background:#0A0A0A;color:#F0EDE8;min-heigh
 </style>
 </head>
 <body>
+<!-- PASSWORD GATE -->
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-logo">Launch<span>30</span></div>
+    <div class="gate-sub">Enter your access password from your purchase receipt to continue.</div>
+    <div class="gate-label">Access password</div>
+    <input class="gate-input" id="gate-input" type="password" placeholder="Enter password..." onkeydown="if(event.key==='Enter')checkPassword()">
+    <div class="gate-error" id="gate-error"></div>
+    <button class="gate-btn" onclick="checkPassword()">Unlock my access →</button>
+    <div class="gate-hint">Purchased but lost your password? <a href="mailto:hello@launch30.co">hello@launch30.co</a></div>
+  </div>
+</div>
+
 <div class="app">
   <div class="hero">
     <div class="hero-badge">⚡ AI-Powered Business Launcher</div>
@@ -250,6 +281,28 @@ async function runAI(){
 }
 
 renderPhaseTabs();renderDayGrid();renderTaskPanel();updateProgress();
+</script>
+<script>
+// ── PASSWORD GATE ──
+const ACCESS_PASSWORD = 'launch30open';
+
+function checkPassword(){
+  const input = document.getElementById('gate-input').value.trim().toLowerCase();
+  const error = document.getElementById('gate-error');
+  if(input === ACCESS_PASSWORD){
+    document.getElementById('gate').classList.add('hidden');
+    sessionStorage.setItem('l30_access','granted');
+  } else {
+    error.textContent = 'Incorrect password. Check your Gumroad receipt email.';
+    document.getElementById('gate-input').value = '';
+    document.getElementById('gate-input').focus();
+  }
+}
+
+// Check if already unlocked this session
+if(sessionStorage.getItem('l30_access') === 'granted'){
+  document.getElementById('gate').classList.add('hidden');
+}
 </script>
 </body>
 </html>
