@@ -1,5 +1,10 @@
 {
+  "functions": {
+    "api/ask.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
   "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api/ask", "destination": "/api/ask.js" }
   ]
 }
