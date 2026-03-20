@@ -262,18 +262,16 @@ async function runAI(){
   btn.disabled=true;btn.textContent='Thinking...';
   out.innerHTML='<span class="ai-loading">Working on it...</span>';
   try{
-    const resp=await fetch('https://api.anthropic.com/v1/messages',{
+    const resp=await fetch('/api/ask',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1000,
         system:`You are a practical business launch advisor. The user is on Day ${currentDay+1}: "${day.title}" of their 30-day business launch journey. Be specific, actionable, and direct. Give real steps, real resources, real numbers. No fluff.`,
-        messages:[{role:'user',content:prompt}]
+        message:prompt
       })
     });
     const data=await resp.json();
-    const text=data.content?.map(c=>c.text||'').join('')||'Could not get a response. Try again.';
+    const text=data.text||data.error||'Could not get a response. Try again.';
     aiOutput[currentDay]=text;
     out.textContent=text;
   }catch(e){out.textContent='AI unavailable right now. Try again in a moment.';}
