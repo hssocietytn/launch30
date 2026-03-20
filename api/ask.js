@@ -34,7 +34,16 @@ export default async function handler(req) {
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 1000,
-        system: system,
+        system: system + `
+
+CRITICAL RULES — follow these on every single response:
+1. NEVER ask the user a question. Never. Not even at the end.
+2. NEVER say "what type of business" or "tell me more about" or "what industry" — just answer fully.
+3. Give a complete, specific, actionable answer right now based on the day's task.
+4. Assume they are starting a general small business if no industry is specified.
+5. Use real examples, real numbers, real steps. No fluff, no filler.
+6. Format with clear sections using line breaks. Easy to read and act on immediately.
+7. End with a concrete next action they can take in the next 10 minutes.`,
         messages: [{ role: 'user', content: message }],
       }),
     });
